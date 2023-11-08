@@ -17,9 +17,11 @@ jobs:
       - uses: aws-actions/setup-sam@v2
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: ${{ inputs.AWS_REGION }}
+          aws-region: eu-west-2
           role-to-assume: ${{ inputs.IDENTITY_ROLE }}
           role-duration-seconds: 1800
-          role-session-name: ${{ inputs.ROLE_SESSION_NAME }}
+          role-session-name: "gh-sam"
+      # sam build 
+      - run: aws s3 ls
       # sam build 
       - run: sam build --use-container
