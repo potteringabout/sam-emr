@@ -1,8 +1,12 @@
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+    inputs:
+      environment:
+         type: environment
+         description: Select the environment
+  #push:
+  #  branches:
+  #    - main
 
 permissions:
   id-token: write
