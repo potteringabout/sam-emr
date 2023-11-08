@@ -22,7 +22,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: eu-west-2
-          role-to-assume: ${{ inputs.IDENTITY_ROLE }}
+          role-to-assume: ${{ secrets.IDENTITY_ROLE }}
           role-duration-seconds: 1800
           role-session-name: "gh-sam"
       # sam build 
