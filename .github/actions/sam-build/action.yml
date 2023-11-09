@@ -1,9 +1,5 @@
 name: SAM Build
-description: SAM build
-#inputs:
-#  ROLE:
-#    description: "The role to assume"
-#    required: true
+description: SAM Build
 
 runs:
   using: "composite"

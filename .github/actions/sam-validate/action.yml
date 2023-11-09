@@ -1,9 +1,5 @@
 name: SAM Validate
-description: Assume one AWS role from another 
-inputs:
-  ROLE:
-    description: "The role to assume"
-    required: true
+description: SAM Validate
 
 runs:
   using: "composite"

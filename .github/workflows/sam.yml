@@ -9,6 +9,21 @@ on:
         description: Select the sam working directory
         default: .
         type: string
+      region:
+        description: Select the AWS region
+        default: eu-west-2
+        type: string
+        required: true
+      bucket:
+        description: AWS deployment bucket
+        default: eu-west-2
+        type: string
+        required: true
+      bucket_path:
+        description: AWS deployment bucket path
+        default: eu-west-2
+        type: string
+        required: true
   #push:
   #  branches:
   #    - main
@@ -43,20 +58,23 @@ jobs:
           role-to-assume: ${{ secrets.IDENTITY_ROLE }}
           role-duration-seconds: 1800
           role-session-name: "gh-sam"
+      
       - name: assume role
         uses: ./.github/actions/assume-role
         with:
           ROLE: ${{ vars.TARGET_ROLE }}
-      # sam build 
-      #- run: |
-      #sam build --use-container
-      #aws s3 ls
+      
       - name: sam validate
         uses: ./.github/actions/sam-validate
+      
       - name: sam build
         uses: ./.github/actions/sam-build
-      #- name: sam validate
-      #  uses: ./.github/actions/sam-validate
-       
+      
+      - name: sam deploy
+        uses: ./.github/actions/sam-deploy
+        with:
+          region: ${{ inputs.region }}
+          bucket: potteringabout-dev-remind
+          bucket_path: lambda
 
      

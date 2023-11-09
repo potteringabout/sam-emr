@@ -1,8 +1,14 @@
 name: SAM Deploy
-description: Assume one AWS role from another 
+description: SAM Deploy
 inputs:
-  ROLE:
-    description: "The role to assume"
+  region:
+    description: AWS Region
+    required: true
+  bucket:
+    description: S3 Bucket
+    required: true
+  bucket_path:
+    description: S3 Bucket Path
     required: true
 
 runs:
@@ -10,10 +16,7 @@ runs:
   
   steps:
     
-    - name: assume role
+    - name: sam deploy
       run: |
-        export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" $(aws sts assume-role --role-arn ${{ inputs.ROLE }} --role-session-name MySessionName --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" --output text))
-        echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $GITHUB_ENV
-        echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> $GITHUB_ENV
+        sam deploy --no-confirm-changeset --region ${{ inputs.region }} --s3-bucket ${{ inputs.bucket }} --s3-prefix ${{ inputs.bucket_path }}         
       shell: bash
