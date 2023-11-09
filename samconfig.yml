@@ -1,7 +1,9 @@
 version: 0.1
-default: 
+dev01: 
   global:
     parameters:
+      s3_prefix: "lambda"
+      region: eu-west-2
       stack_name: github-actions-with-aws-sam
   build:
     parameters:
@@ -10,11 +12,6 @@ default:
   validate:
     parameters:
       lint: true
-  deploy:
-    parameters:
-      capabilities: CAPABILITY_IAM
-      confirm_changeset: false
-      resolve_s3: false
   package:
     parameters:
       resolve_s3: false
@@ -27,11 +24,11 @@ default:
   local_start_lambda:
     parameters:
       warm_containers: EAGER
-
-  dev01:
-    deploy:
-      s3_bucket: "potteringabout-dev-remind"
-      s3_prefix: "lambda"
-      region: "xxx"
+  deploy:
+    parameters:
+      s3_bucket: potteringabout-dev-remind
+      capabilities: CAPABILITY_IAM
+      confirm_changeset: false
+      resolve_s3: false
       tags: foo=bar hello=world
 
