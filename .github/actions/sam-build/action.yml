@@ -1,0 +1,16 @@
+name: SAM Build
+description: SAM build
+#inputs:
+#  ROLE:
+#    description: "The role to assume"
+#    required: true
+
+runs:
+  using: "composite"
+  
+  steps:
+    
+    - name: sam build
+      run: |
+        sam build
+      shell: bash

@@ -3,8 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-         type: environment
-         description: Select the environment
+        type: environment
+        description: Select the environment
+      working_dir:
+          type: environment
+          description: Select the environment
+          default: .
   #push:
   #  branches:
   #    - main
@@ -12,6 +16,10 @@ on:
 permissions:
   id-token: write
   contents: read
+
+defaults:
+  run:
+    working-directory: ${{ inputs.working_dir }}
 
 jobs:
   build-deploy:
@@ -39,17 +47,16 @@ jobs:
         uses: ./.github/actions/assume-role
         with:
           ROLE: ${{ vars.TARGET_ROLE }}
-      #- name: assume role
-      #  run: |
-      #    export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" $(aws sts assume-role --role-arn ${{ vars.TARGET_ROLE }} --role-session-name MySessionName --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" --output text))
-      #    echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $GITHUB_ENV
-      #    echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $GITHUB_ENV
-      #    echo "AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN" >> $GITHUB_ENV
-      #    aws s3 ls
       # sam build 
-      - run: |
-          #sam build --use-container
-          aws s3 ls
-
+      #- run: |
+      #sam build --use-container
+      #aws s3 ls
+      - name: sam validate
+        uses: ./.github/actions/sam-validate
+      - name: sam build
+        uses: ./.github/actions/sam-build
+      #- name: sam validate
+      #  uses: ./.github/actions/sam-validate
+       
 
      
