@@ -1,4 +1,4 @@
-name: sam
+name: sam deploy
 on:
   workflow_dispatch:
     inputs:
@@ -44,7 +44,7 @@ jobs:
       - name: configure aws creds
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: eu-west-2
+          aws-region: ${{ inputs.region }}
           role-to-assume: ${{ secrets.IDENTITY_ROLE }}
           role-duration-seconds: 1800
           role-session-name: "gh-sam"

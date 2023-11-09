@@ -1,0 +1,16 @@
+name: SAM Delete
+description: SAM Delete
+inputs:
+  environment:
+    description: Environment
+    required: true
+  
+runs:
+  using: "composite"
+  
+  steps:
+    
+    - name: sam delete
+      run: |
+        sam delete --no-confirm-changeset --config-env ${{ inputs.environment }}        
+      shell: bash

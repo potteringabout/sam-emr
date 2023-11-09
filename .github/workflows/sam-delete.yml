@@ -1,0 +1,65 @@
+name: sam delete
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      working_dir:
+        description: Select the sam working directory
+        default: .
+        type: string
+      region:
+        description: Select the AWS region
+        default: eu-west-2
+        type: string
+        required: true
+  #push:
+  #  branches:
+  #    - main
+
+permissions:
+  id-token: write
+  contents: read
+
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_dir }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: install SAM
+        uses: aws-actions/setup-sam@v2
+        with:
+          version: '1.100.0'
+      - name: configure aws creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ inputs.region }}
+          role-to-assume: ${{ secrets.IDENTITY_ROLE }}
+          role-duration-seconds: 1800
+          role-session-name: "gh-sam"
+      
+      - name: assume role
+        uses: ./.github/actions/assume-role
+        with:
+          ROLE: ${{ vars.TARGET_ROLE }}
+      
+      - name: sam validate
+        uses: ./.github/actions/sam-validate
+      
+      - name: sam delete
+        uses: ./.github/actions/sam-delete
+        with:
+          environment: ${{ inputs.environment }}
+
+     
