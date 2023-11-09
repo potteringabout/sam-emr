@@ -8,6 +8,7 @@ on:
       working_dir:
         description: Select the sam working directory
         default: '.'
+        type: string
   #push:
   #  branches:
   #    - main
