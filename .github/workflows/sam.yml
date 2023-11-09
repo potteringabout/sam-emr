@@ -7,7 +7,7 @@ on:
         description: Select the environment
       working_dir:
         description: Select the sam working directory
-        default: './'
+        default: .
         type: string
   #push:
   #  branches:
@@ -17,14 +17,14 @@ permissions:
   id-token: write
   contents: read
 
-defaults:
-  run:
-    working-directory: "${{ inputs.working_dir }}"
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_dir }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
