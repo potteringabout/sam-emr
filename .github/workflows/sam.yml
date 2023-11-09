@@ -63,7 +63,6 @@ jobs:
       - name: sam deploy
         uses: ./.github/actions/sam-deploy
         with:
-          region: ${{ inputs.region }}
           environment: ${{ inputs.environment }}
 
      
