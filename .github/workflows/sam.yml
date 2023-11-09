@@ -6,8 +6,7 @@ on:
         type: environment
         description: Select the environment
       working_dir:
-          type: environment
-          description: Select the environment
+          description: Select the sam working directory
           default: .
   #push:
   #  branches:
