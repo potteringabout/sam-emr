@@ -14,16 +14,6 @@ on:
         default: eu-west-2
         type: string
         required: true
-      bucket:
-        description: AWS deployment bucket
-        default: eu-west-2
-        type: string
-        required: true
-      bucket_path:
-        description: AWS deployment bucket path
-        default: eu-west-2
-        type: string
-        required: true
   #push:
   #  branches:
   #    - main
@@ -74,7 +64,6 @@ jobs:
         uses: ./.github/actions/sam-deploy
         with:
           region: ${{ inputs.region }}
-          bucket: potteringabout-dev-remind
-          bucket_path: lambda
+          environment: ${{ inputs.environment }}
 
      

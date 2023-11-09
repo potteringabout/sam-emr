@@ -1,16 +1,10 @@
 name: SAM Deploy
 description: SAM Deploy
 inputs:
-  region:
-    description: AWS Region
+  environment:
+    description: Environment
     required: true
-  bucket:
-    description: S3 Bucket
-    required: true
-  bucket_path:
-    description: S3 Bucket Path
-    required: true
-
+  
 runs:
   using: "composite"
   
@@ -18,5 +12,5 @@ runs:
     
     - name: sam deploy
       run: |
-        sam deploy --no-confirm-changeset --region ${{ inputs.region }} --s3-bucket ${{ inputs.bucket }} --s3-prefix ${{ inputs.bucket_path }}         
+        sam deploy --no-confirm-changeset --config-env TEXT        
       shell: bash
