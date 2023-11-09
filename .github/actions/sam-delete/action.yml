@@ -12,5 +12,5 @@ runs:
     
     - name: sam delete
       run: |
-        sam delete --no-confirm-changeset --config-env ${{ inputs.environment }}        
+        sam delete --config-env ${{ inputs.environment }}        
       shell: bash
