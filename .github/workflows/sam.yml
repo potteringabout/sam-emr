@@ -7,7 +7,7 @@ on:
         description: Select the environment
       working_dir:
         description: Select the sam working directory
-        default: '.'
+        default: './'
         type: string
   #push:
   #  branches:
@@ -19,7 +19,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: ${{ inputs.working_dir }}
+    working-directory: "${{ inputs.working_dir }}"
 
 jobs:
   build-deploy:
