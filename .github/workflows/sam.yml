@@ -5,9 +5,9 @@ on:
       environment:
         type: environment
         description: Select the environment
-  #    working_dir:
-  #      description: Select the sam working directory
-  #      default: .
+      working_dir:
+        description: Select the sam working directory
+        default: '.'
   #push:
   #  branches:
   #    - main
