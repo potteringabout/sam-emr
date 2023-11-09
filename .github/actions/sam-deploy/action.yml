@@ -12,5 +12,5 @@ runs:
     
     - name: sam deploy
       run: |
-        sam deploy --no-confirm-changeset --config-env TEXT        
+        sam deploy --no-confirm-changeset --config-env ${{ inputs.environment }}        
       shell: bash
