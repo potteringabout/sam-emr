@@ -24,7 +24,7 @@ permissions:
 
 
 jobs:
-  build-deploy:
+  build-delete:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     defaults:
