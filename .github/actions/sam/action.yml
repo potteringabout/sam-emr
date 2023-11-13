@@ -21,6 +21,7 @@ runs:
           exit 1
         fi
         sam delete --config-env ${{ inputs.environment }}  --config-file samconfig.yml --no-prompts
+        echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
       shell: bash
 
     - name: sam deploy
