@@ -16,7 +16,7 @@ runs:
     - name: sam delete
       if: inputs.action == 'delete'
       run: |
-        if [[ "${{inputs.environment}}" != "" ]]; then
+        if [[ "${{inputs.environment}}" == "" ]]; then
           echo "::error environment parameter not supplied"
           exit 1
         fi
@@ -27,7 +27,7 @@ runs:
     - name: sam deploy
       if: inputs.action == 'deploy'
       run: |
-        if [[ "${{inputs.environment}}" != "" ]]; then
+        if [[ "${{inputs.environment}}" == "" ]]; then
           echo "::error environment parameter not supplied"
           exit 1
         fi
