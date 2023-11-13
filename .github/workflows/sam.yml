@@ -77,13 +77,13 @@ jobs:
           action: build
         
       #- name: sam deploy
-      #  if: ${{ inputs.action == 'deploy' }}
+      #  if: inputs.action == 'deploy' 
       #  uses: ./.github/actions/sam-deploy
       #  with:
       #    environment: ${{ inputs.environment }}
 
       - name: sam deploy
-        if: ${{ inputs.action == 'deploy' }}
+        if: inputs.action == 'deploy'
         uses: ./.github/actions/sam
         with:
           environment: ${{ inputs.environment }}
@@ -96,7 +96,7 @@ jobs:
       #    environment: ${{ inputs.environment }}
       
       - name: sam delete
-        if: ${{ inputs.action == 'delete' }}
+        if: inputs.action == 'delete'
         uses: ./.github/actions/sam
         with:
           environment: ${{ inputs.environment }}
