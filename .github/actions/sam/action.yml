@@ -21,7 +21,6 @@ runs:
           exit 1
         fi
         sam delete --config-env ${{ inputs.environment }}  --config-file samconfig.yml --no-prompts
-        exit $?
       shell: bash
 
     - name: sam deploy
@@ -32,7 +31,6 @@ runs:
           exit 1
         fi
         sam deploy --no-confirm-changeset --config-env ${{ inputs.environment }}  
-        exit $?      
       shell: bash
 
     - name: sam build
