@@ -1,4 +1,4 @@
-name: sam - ${{ github.actor }}
+name: sam
 on:
   workflow_dispatch:
     inputs:
