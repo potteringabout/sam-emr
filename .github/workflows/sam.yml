@@ -65,23 +65,43 @@ jobs:
         with:
           action: validate
         
-      - name: sam validate
-        uses: ./.github/actions/sam-validate
+      #- name: sam validate
+      #  uses: ./.github/actions/sam-validate
+      
+      #- name: sam build
+      #  uses: ./.github/actions/sam-build
       
       - name: sam build
-        uses: ./.github/actions/sam-build
-      
+        uses: ./.github/actions/sam
+        with:
+          action: build
+        
+      #- name: sam deploy
+      #  if: ${{ inputs.action == 'deploy' }}
+      #  uses: ./.github/actions/sam-deploy
+      #  with:
+      #    environment: ${{ inputs.environment }}
+
       - name: sam deploy
         if: ${{ inputs.action == 'deploy' }}
         uses: ./.github/actions/sam-deploy
         with:
           environment: ${{ inputs.environment }}
+          action: deploy
 
+      #- name: sam delete
+      #  if: ${{ inputs.action == 'delete' }}
+      #  uses: ./.github/actions/sam-delete
+      #  with:
+      #    environment: ${{ inputs.environment }}
+      
       - name: sam delete
         if: ${{ inputs.action == 'delete' }}
         uses: ./.github/actions/sam-delete
         with:
           environment: ${{ inputs.environment }}
+          action: delete
+  
   
 
      
