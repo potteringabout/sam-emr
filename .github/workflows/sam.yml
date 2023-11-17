@@ -38,12 +38,6 @@ jobs:
         working-directory: xxx
     steps:
 
-      - name: sysout
-        run: |
-          pwd
-          echo ${{ inputs.working_dir }}
-        shell: bash
-
       - name: checkout
         uses: actions/checkout@v3
       - name: install python
@@ -71,6 +65,7 @@ jobs:
         uses: ./.github/actions/sam
         with:
           action: validate
+          working_dir: ${{ inputs.working_dir }}
         
       #- name: sam validate
       #  uses: ./.github/actions/sam-validate
@@ -82,6 +77,7 @@ jobs:
         uses: ./.github/actions/sam
         with:
           action: build
+          working_dir: ${{ inputs.working_dir }}
         
       #- name: sam deploy
       #  if: inputs.action == 'deploy' 
@@ -95,6 +91,7 @@ jobs:
         with:
           environment: ${{ inputs.environment }}
           action: deploy
+          working_dir: ${{ inputs.working_dir }}
 
       #- name: sam delete
       #  if: ${{ inputs.action == 'delete' }}
@@ -108,6 +105,7 @@ jobs:
         with:
           environment: ${{ inputs.environment }}
           action: delete
+          working_dir: ${{ inputs.working_dir }}
   
   
 

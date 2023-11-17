@@ -7,10 +7,12 @@ inputs:
   action:
     description: Action
     required: true
+  working_dir:
+    description: Working Dir
+    required: true
     
 runs:
   using: "composite"
-  
   steps:
 
     - name: sam delete
@@ -22,6 +24,7 @@ runs:
         fi
         sam delete --config-env ${{ inputs.environment }}  --config-file samconfig.yml --no-prompts
       shell: bash
+      working-directory: ${{ inputs.working_dir }} 
 
     - name: sam deploy
       if: inputs.action == 'deploy'
@@ -32,15 +35,18 @@ runs:
         fi
         sam deploy --no-confirm-changeset --config-env ${{ inputs.environment }}  
       shell: bash
+      working-directory: ${{ inputs.working_dir }}
 
     - name: sam build
       if: inputs.action == 'build'
       run: |
         sam build
       shell: bash
+      working-directory: ${{ inputs.working_dir }}
 
     - name: sam validate
       if: inputs.action == 'validate'
       run: |
         sam validate
       shell: bash
+      working-directory: ${{ inputs.working_dir }}
